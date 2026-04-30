@@ -11,7 +11,7 @@ export default {
     return new Response(JSON.stringify({
       ok: true,
       message: "フロント側ロジックで全自動予想します。",
-      note: "このWorkerは接続確認用です。AI Binding不要。"
+      mode: "local-prediction"
     }), { headers });
   }
 };
