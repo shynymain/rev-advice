@@ -1,6 +1,5 @@
-name = "rev-advice"
+name = "rev-advice-auto-no-ocr"
 main = "src/worker.js"
 compatibility_date = "2026-04-30"
-
 [ai]
 binding = "AI"
