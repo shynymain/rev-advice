@@ -1,3 +1,4 @@
 name = "rev-advice"
 main = "worker.js"
-compatibility_date = "2025-01-01"
+compatibility_date = "2024-11-01"
+# Cloudflare Workers AIを使う場合はダッシュボードで Binding name: AI を追加
