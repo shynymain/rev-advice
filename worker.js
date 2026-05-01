@@ -1,8 +1,2 @@
-const headers = {"content-type":"application/json;charset=utf-8","access-control-allow-origin":"*","access-control-allow-methods":"GET,POST,OPTIONS","access-control-allow-headers":"content-type"};
-export default { async fetch(request) {
-  if(request.method === "OPTIONS") return new Response(JSON.stringify({ok:true}), {headers});
-  const url = new URL(request.url);
-  if(url.pathname === "/api/health") return new Response(JSON.stringify({ok:true,service:"advice"}), {headers});
-  if(url.pathname === "/api/advice") return new Response(JSON.stringify({ok:true,advice:"現行ルール維持。S型・5系接続・中位人気軸を優先。"}), {headers});
-  return new Response(JSON.stringify({ok:false,error:"not found"}), {status:404,headers});
-}};
+const headers={"content-type":"application/json; charset=utf-8","access-control-allow-origin":"*","access-control-allow-methods":"GET,POST,OPTIONS","access-control-allow-headers":"content-type"};
+export default{async fetch(request,env){if(request.method==='OPTIONS')return new Response(JSON.stringify({ok:true}),{headers});const url=new URL(request.url);if(url.pathname==='/api/health')return Response.json({ok:true,service:'advice'}, {headers});if(url.pathname==='/api/advice'){let body={};try{body=await request.json()}catch{};const races=body.races||[];const s=body.summary||{};const advice=`AIルール改善案\n\n1. 回収率特化：S型のみ本線、B型は完全見送り。\n2. 小頭数・1強・中位不在は除外維持。\n3. 資金配分：高=300円/点、中=200円/点、低=100円/点。\n4. 現在集計：保存${s.saved||races.length||0}件 / 結果${s.result||0}件 / 回収率${s.rate||0}%。\n5. 次の改善：30R以上貯まるまで自動適用はせず、提案表示のみ。`;return new Response(JSON.stringify({ok:true,advice}),{headers})}return new Response(JSON.stringify({ok:false,error:'not found'}),{status:404,headers})}};
